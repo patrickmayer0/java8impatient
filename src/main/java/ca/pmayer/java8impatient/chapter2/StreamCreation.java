@@ -1,9 +1,6 @@
 package ca.pmayer.java8impatient.chapter2;
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +12,7 @@ public class StreamCreation {
         MessageFormat msg = new MessageFormat("Count: {0}");
         Long count = 0L;
         // from a List
-        String contents = new String(Files.readAllBytes(Paths.get("alice.txt")), StandardCharsets.UTF_8);
-        String[] splitWords = contents.split("[\\P{L}]+");
+        String[] splitWords = Utils.getWordsArray();
         List<String> wordsList = Arrays.asList(splitWords);
         Stream<String> words = wordsList.stream();
         count = words.count();
@@ -59,6 +55,8 @@ public class StreamCreation {
         Stream<Double> random = Stream.generate(Math::random).limit(10);
         random.forEach(v -> System.out.println(v));
     }
+
+
 
     private static void output(MessageFormat msg, Long count) {
         System.out.println(msg.format(new Object[] { count }));
